@@ -1,0 +1,25 @@
+name: Review Trigger
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  trigger_on_review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Trigger Workflow on Review
+        run: |
+          # Check if the review state is approved
+          if [ "${{ github.event.review.state }}" == "approved" ]; then
+            # Trigger your desired workflow or commands here
+            echo "Review approved! Triggering your workflow..."
+            # Add your workflow or command to run here
+          else
+            echo "Review state is not approved. Skipping workflow trigger."
+          fi
